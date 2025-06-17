@@ -227,13 +227,21 @@ template <class T>
 int AVL<T>::height(TreeNode* node) const {}
 
 template <class T>
-void AVL<T>::balance(TreeNode*& node) {}
 
 template <class T>
-AVL<T>::TreeNode::TreeNode(const T& value) {}
+AVL<T>::TreeNode::TreeNode(const T& value) : val(value), left(nullptr), right(nullptr), height(1) {}
 
 template <class T>
-AVL<T>::TreeNode::~TreeNode() {}
+AVL<T>::TreeNode::~TreeNode() {
+  delete left;
+  delete right;
+}
+
+template <class T>
+typename AVL<T>::TreeNode* AVL<T>::TreeNode::max() {
+  TreeNode* curr = this;
+  while (curr->right) curr = curr->right;
+  return curr;}
 
 template <class T>
 typename AVL<T>::TreeNode* AVL<T>::TreeNode::max() {}
@@ -284,4 +292,8 @@ void AVL<T>::post_order(const TreeNode* const node,
                         std::vector<T>& result) const {}
 
 template <class T>
-std::vector<T> AVL<T>::post_order() const {}
+std::vector<T> AVL<T>::post_order() const {
+  std::vector<T> result;
+    post_order(root, result);
+    return result;
+}
